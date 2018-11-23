@@ -1,0 +1,22 @@
+{
+    "name": "PWA proof of concept",
+    "short_name": "PWA",
+    "lang": "hr-HR",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "theme_color": "#0275d8",
+    "background_color": "#ffffff",
+    "icons": [
+      {
+        "src": "e8e32bc08b.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "rsz_e8e32bc08b.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+      
+    ]
+  }

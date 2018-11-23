@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Robert Borosak">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>PWA proof of concept</title>
+</head>
+<!-- Prompt a message in the browser if users disabled JS -->
+<noscript>Your browser does not support JavaScript!</noscript>
+
+<body>
+    <button class="ad2hs-prompt">
+            Kliknite ovdje kako biste instalirali aplikaciju
+    </button><br />
+    <div id="root">
+        <h1>Loading app... Please wait</h1>
+    </div>
+</body>
+
+<script>
+    window.addEventListener('beforeinstallprompt', function (e) {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+
+        showAddToHomeScreen();
+
+    });
+
+
+    function showAddToHomeScreen() {
+
+        var a2hsBtn = document.querySelector(".ad2hs-prompt");
+
+        a2hsBtn.style.display = "block";
+
+        a2hsBtn.addEventListener("click", addToHomeScreen);
+
+    }
+
+
+    function addToHomeScreen() {
+        var a2hsBtn = document.querySelector(".ad2hs-prompt");  // hide our user interface that shows our A2HS button
+        a2hsBtn.style.display = 'none';  // Show the prompt
+        deferredPrompt.prompt();  // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice
+            .then(function (choiceResult) {
+
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+
+                deferredPrompt = null;
+
+            });
+    }
+
+
+</script>
+
+</html>
